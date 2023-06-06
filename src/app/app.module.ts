@@ -45,7 +45,7 @@ import { DatatableComponent } from './pages/datatable/datatable.component';
 import { DataTablesModule } from "angular-datatables";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NoticiaComponent } from './pages/noticia/noticia.component';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
@@ -79,6 +79,7 @@ registerLocaleData(localeEn, 'en-EN');
         PromoactivaComponent,
         DatatableComponent,
         NoticiaComponent
+        
     ],
     imports: [
         BrowserModule,
@@ -87,6 +88,7 @@ registerLocaleData(localeEn, 'en-EN');
         AppRoutingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
+        AngularEditorModule,
         ToastrModule.forRoot({
             timeOut: 3000,
             positionClass: 'toast-top-right',

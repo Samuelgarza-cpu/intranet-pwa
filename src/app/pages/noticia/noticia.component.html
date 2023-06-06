@@ -11,8 +11,9 @@
                   
                   <div class="form-group col-md-12">
                     <label for="desc">Descripcion</label>
-                    <input type="text" formControlName ="descripcion" class="form-control" id="desc" placeholder="Descripcion">
-                    <div *ngIf="Formulario.get('descripcion')?.touched && Formulario.get('descripcion')?.errors?.['required' ]" class="alert-default-danger"> Descripcion Requerido</div>
+                    <angular-editor [config]="config" formControlName = "descripcion"></angular-editor>
+                    <!-- <input type="text" formControlName ="descripcion" class="form-control" id="desc" placeholder="Descripcion">
+                    <div *ngIf="Formulario.get('descripcion')?.touched && Formulario.get('descripcion')?.errors?.['required' ]" class="alert-default-danger"> Descripcion Requerido</div> -->
                   </div>
                  
                 </div>
@@ -34,7 +35,10 @@
                 </div>
 
                 <button [disabled]="Formulario.invalid" type="submit" class="btn btn-primary">Publicar</button>
+            
               </form>
+
+
         </div>
 
 </section>
