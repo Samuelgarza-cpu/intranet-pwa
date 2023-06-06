@@ -1,0 +1,146 @@
+<div class="content">
+    <div class="container">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a [routerLink]="['/']" class="h1"><b>Registro</b>Intranet</a>
+            </div>
+            <div class="card-body">
+            </div>
+    </div>
+        <p class="login-box-msg">Registrar un nuevo Empleado</p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="registerByAuth()">
+            <div class="row">
+                <div class=" col-lg-4 col-sm-12">
+
+                    <div class="input-group mb-3">
+                        <input
+                            formControlName="Nombre"
+                            type="text"
+                            class="form-control"
+                            placeholder="Nombre"
+                        />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class=" fas fa-thin fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class=" col-lg-4 col-sm-12">
+
+                    <div class="input-group mb-3">
+                        <input
+                            formControlName="App"
+                            type="text"
+                            class="form-control"
+                            placeholder="Apellido Paterno"
+                        />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-thin fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="col-lg-4 col-sm-12">
+
+                    <div class="input-group mb-3">
+                        <input
+                            formControlName="Apm"
+                            type="text"
+                            class="form-control"
+                            placeholder="Apellido Materno"
+                        />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-thin fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                        <input
+                            formControlName="email"
+                            type="email"
+                            class="form-control"
+                            placeholder="Email"
+                        />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                        <input
+                            formControlName="Nomina"
+                            type="number"
+                            class="form-control"
+                            placeholder="N° de Nomina"
+                        />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class=" fas fa-book"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                       
+                        <select class="form-control" formControlName="Rol">
+                          <option [ngValue]="1">Administrador</option>
+                          <option [ngValue]="2">Posteador</option>
+                          <option [ngValue]="3">General</option>
+                   
+                        </select>
+                      </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                        <input
+                            formControlName="password"
+                            type="password"
+                            class="form-control"
+                            placeholder="Password"
+                        />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+     
+            <div class="row">
+                <div class="col-5">
+                    <pf-button
+                        [type]="'submit'"
+                        [block]="true"
+                        [loading]="isAuthLoading"
+                        [disabled]="isFacebookLoading || isGoogleLoading"
+                    >
+                        Registrar
+                    </pf-button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+</div>

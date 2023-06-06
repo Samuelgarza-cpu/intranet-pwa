@@ -1,0 +1,23 @@
+<div class="container" style="padding-top: 110px; ">
+    <div class="card">
+      <div class="text-center">
+        <h4 >REGISTRO DE PROMOCION</h4>
+      </div>
+      <div class="card-body">
+        <div class="center-block">
+          <form [formGroup]="Formulario" (ngSubmit)="existeUsuario()">
+            <div class="form-row">
+  
+              <div class="form-group col-md-6">
+                <label for="idCliente">ID CLIENTE</label>
+                <input type="number" formControlName ="idCliente" class="form-control" id="idCliente">
+                <div *ngIf="Formulario.get('idCliente')?.touched && Formulario.get('idCliente')?.errors?.['required']" class="alert-default-danger"> ID CLIENTE REQUERIDO</div>
+              </div>
+            </div>
+            <button  [disabled]="Formulario.invalid" type="submit" class="btn btn-success" style="margin-top: 10px;" >Guardar</button>
+          </form>
+        </div>
+  
+      </div>
+    </div>
+  </div>

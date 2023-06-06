@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="card">
+      <div class="text-center">
+        <h4 >REGISTRO DE USUARIOS</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="Formulario" (ngSubmit)="enviarDatos()">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="nombre">Nombre</label>
+              <input type="text" formControlName ="nombre" class="form-control" id="nombre">
+              <div *ngIf="Formulario.get('nombre')?.touched && Formulario.get('nombre')?.errors?.['required' ]" class="alert-default-danger"> Nombre Requerido</div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="App">Apellido Paterno</label>
+              <input type="text" formControlName = "app" class="form-control" id="App">
+              <div *ngIf="Formulario.get('app')?.touched && Formulario.get('app')?.errors?.['required' ]" class="alert-default-danger"> Apellido Paterno Requerido</div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="Apm">Apellido Materno</label>
+              <input type="text" formControlName="apm" class="form-control" id="Apm">
+              <div *ngIf="Formulario.get('apm')?.touched && Formulario.get('apm')?.errors?.['required' ]" class="alert-default-danger"> Apellido Materno Requerido</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="correo">Correo</label>
+              <input type="email" formControlName="correo" class="form-control" id="correo" required>
+              <div *ngIf="Formulario.get('correo')?.touched && Formulario.get('correo')?.errors?.['pattern']" class="alert-default-danger"> Correo Incorrecto</div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" formControlName="telefono" class="form-control" id="telefono">
+              <div *ngIf="Formulario.get('telefono')?.touched && Formulario.get('telefono')?.errors?.['required' ]" class="alert-default-danger"> Teléfono Requerido</div>
+              <div *ngIf="Formulario.get('telefono')?.touched && Formulario.get('telefono')?.errors?.['pattern']">
+              Telefono Incorrecto
+              </div> 
+          
+            </div>
+          </div>
+          <button  [disabled]="Formulario.invalid" type="submit" class="btn btn-success" style="margin-top: 10px;" >Guardar</button>
+          <button [hidden]="isCancel" type="button" class="btn btn-dark" style="margin-top: 10px; margin-left: 10px;" (click)="cancelar()">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <h1>Registros</h1>
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido Paterno</th>
+                <th scope="col">Apellido Materno</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Fecha Alta</th>
+                <th scope="col">Acciones</th>
+               
+   
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data; index as i;">
+                <td>{{item.idUser}}</td>
+                <td>{{item.NombreUser}}</td>
+                <td>{{item.App}}</td>
+                <td>{{item.Apm}}</td>
+                <td>{{item.Correo}}</td>
+                <td>{{item.Telefono}}</td>
+                <td>{{item.FechaAlta}}</td>
+                <td ><button class="btn btn-primary btn-xs" (click)="Actualizar(item.idUser)"> Actualizar</button> | <button class="btn btn-success btn-xs" (click)="Eliminar(item.idUser)"> Eliminar</button></td>
+    
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  
