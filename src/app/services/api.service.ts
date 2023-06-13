@@ -11,30 +11,35 @@ export class ApiService {
     // URL = "https://api-intranet-production.up.railway.app/"
     // URL="http://localhost:5050/"
     URL = "https://api.intranetgp.com/"
+    urlPrueba = "https://api.gomezpalacio.gob.mx/api/requis";
 
     constructor(private http: HttpClient) { }
 
     getAvisos() {
         return this.http.get(`${this.URL}api/getavisos`);
     }
-    getUsuario(usuario:any):Observable<any> {
-        return this.http.post(`${this.URL}api/getUsuario`,usuario);
+    getUsuario(usuario: any): Observable<any> {
+        return this.http.post(`${this.URL}api/getUsuario`, usuario);
     }
-    getUsuarioByID(id:any):Observable<any> {
-        return this.http.post(`${this.URL}api/getUsuariobyid`,id);
+    getUsuarioByID(id: any): Observable<any> {
+        return this.http.post(`${this.URL}api/getUsuariobyid`, id);
     }
     saveAviso(aviso: any): Observable<any> {
-   
+
         return this.http.post(`${this.URL}api/aviso`, aviso);
     }
-    saveImagen(id:any,imagen:FormData): Observable<any> {
-   
-        return this.http.post(`${this.URL}api/saveImagen/` + id,imagen );
+    saveImagen(id: any, imagen: FormData): Observable<any> {
+
+        return this.http.post(`${this.URL}api/saveImagen/` + id, imagen);
     }
     saveToken(token: any): Observable<any> {
         return this.http.post(`${this.URL}api/save`, token);
     }
     saveUsuario(usaurio: any): Observable<any> {
         return this.http.post(`${this.URL}api/usuario`, usaurio);
+    }
+
+    getIndex(): Observable<any> {
+        return this.http.get(this.urlPrueba);
     }
 }

@@ -43,22 +43,22 @@ export class MenuSidebarComponent implements OnInit {
                         iconClasses: 'fas fa-user',
                         path: ['/usuario']
                     },
-                    // {
-                    //     name: 'Registro',
-                    //     iconClasses: 'fas fa-folder',        
-                    //     children: [
-                    //         {
-                    //             name: 'Cliente',
-                    //             iconClasses: 'fa fa-user-plus',
-                    //             path: ['/registrarcliente']
-                    //         },
-                    //         {
-                    //             name: 'Promo',
-                    //             iconClasses: 'fa fa-car',
-                    //             path: ['/registrarpromocion']
-                    //         }
-                    //     ]
-                    // },
+                    {
+                        name: 'ADMINISTRATIVO',
+                        iconClasses: 'fas fa-folder',        
+                        children: [
+                            {
+                                name: 'ALMACEN',
+                                iconClasses: 'fa fa-user-plus',
+                                path: ['/requisiciones']
+                            },
+                            // {
+                            //     name: 'CONTROL VEHICULAR',
+                            //     iconClasses: 'fa fa-car',
+                            //     path: ['/usuario']
+                            // }
+                        ]
+                    },
                 ];
             } else if (this.rol == 2) {
                 this.menu = [

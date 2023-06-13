@@ -19,9 +19,11 @@ export class DashboardComponent implements OnInit {
     this.subscribeToNotifications();
     this.apiService.getAvisos().subscribe((data) => {
       this.avisos = data;
-
-
     })
+
+    this.apiService.getIndex().subscribe((data=>{
+      console.log(data)
+    }))
 
   }
 

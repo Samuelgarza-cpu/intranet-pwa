@@ -39,7 +39,7 @@ const routes: Routes = [
                 component: RegisterComponent
             },
             {
-                path: 'blank',
+                path: 'requisiciones',
                 component: BlankComponent
             },
             {

@@ -1,3 +1,19 @@
 :host {
     cursor: pointer;
 }
+
+
+.nav-link {
+
+    color: black !important;
+}
+
+.nav-link.active {
+    background-color: #a81515 !important;
+    color: aliceblue !important;
+}
+
+.nav-link:hover{
+    background-color: #aa3c3c !important;
+}
+
