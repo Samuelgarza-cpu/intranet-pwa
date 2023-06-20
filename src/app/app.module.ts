@@ -46,6 +46,7 @@ import { DataTablesModule } from "angular-datatables";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NoticiaComponent } from './pages/noticia/noticia.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { BlockUIModule } from 'ng-block-ui';
 
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
@@ -94,6 +95,7 @@ registerLocaleData(localeEn, 'en-EN');
             positionClass: 'toast-top-right',
             preventDuplicates: true
         }),
+        BlockUIModule.forRoot(),
         ProfabricComponentsModule,
         DataTablesModule,
         ServiceWorkerModule.register('ngsw-worker.js', {

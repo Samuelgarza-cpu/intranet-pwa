@@ -11,7 +11,7 @@ export class ApiService {
     // URL = "https://api-intranet-production.up.railway.app/"
     // URL="http://localhost:5050/"
     URL = "https://api.intranetgp.com/"
-    urlPrueba = "https://api.gomezpalacio.gob.mx/api/requis";
+    urlPHP = "https://api.gomezpalacio.gob.mx/api/requis";
 
     constructor(private http: HttpClient) { }
 
@@ -40,6 +40,10 @@ export class ApiService {
     }
 
     getIndex(): Observable<any> {
-        return this.http.get(this.urlPrueba);
+        return this.http.get(this.urlPHP);
+    }
+
+    sendData(data: any): Observable<any> {
+        return this.http.post(this.urlPHP, data);
     }
 }

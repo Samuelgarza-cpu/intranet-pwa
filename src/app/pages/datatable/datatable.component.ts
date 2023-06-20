@@ -1,7 +1,14 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Renderer2, AfterViewInit} from "@angular/core";
+import { Component, OnInit, Renderer2, AfterViewInit } from "@angular/core";
+import { ApiService } from '@services/api.service';
 import { Subject } from 'rxjs';
+import moment from 'moment';
+moment.locale("es");
+import { Router } from '@angular/router';
+
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+
 
 import Swal from 'sweetalert2'
 
@@ -14,9 +21,15 @@ export class DatatableComponent implements AfterViewInit, OnInit {
 
   dtOptions: DataTables.Settings = {};
   dataReq: any;
+  isMerca: any;
+  usuario: any;
+  dataSend: {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private httpClient: HttpClient, private renderer: Renderer2) {
+
+  @BlockUI() blockUI: NgBlockUI;
+
+  constructor(private httpClient: HttpClient, private renderer: Renderer2, private service: ApiService, public _router: Router) {
 
   }
   ngOnInit(): void {
@@ -27,8 +40,6 @@ export class DatatableComponent implements AfterViewInit, OnInit {
           .get(
             'https://api.gomezpalacio.gob.mx/api/requis'
           ).subscribe(resp => {
-            console.log(resp);
-
             callback({
               recordsTotal: resp,
               recordsFiltered: resp,
@@ -65,7 +76,13 @@ export class DatatableComponent implements AfterViewInit, OnInit {
         }, {
           title: 'Acciones',
           render: function (data: any, type: any, full: any) {
-            return `  <button type="button" class="btn btn-outline-primary botoncito" data-id = ${full.IDRequisicion}> Confirmar Recibido </button>`;
+
+            return full.notificacion == 1
+              ? `  <b class="bg-secondary p-2 rounded "> NOTIFICADO </b>`
+              : `<div class = "btn-group text-sm">
+                  <button type="button" class="btn btn-outline-primary btn-sm botoncito" data-id = ${full.IDRequisicion} title = "Notificar Llegada" > <i class="fa-solid fa-bell fa-shake fa-xl iconoNotificar" data-id = ${full.IDRequisicion}></i> </button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm mercancia" data-id = ${full.IDRequisicion} title = "Mercancia Incorrecta" > <i class="fa-solid fa-box-check fa-xl iconoError" data-id = ${full.IDRequisicion}></i> </button></div>`
+
           }
         }
       ],
@@ -89,21 +106,50 @@ export class DatatableComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     this.renderer.listen('document', 'click', (event) => {
 
-      if (event.target.classList.contains('botoncito')) {
 
+      if (event.target.classList.contains('botoncito') || event.target.classList.contains('iconoNotificar')) {
+
+        this.notificar("ENVIANDO NOTIFICACION......")
         this.dataReq = event.target.dataset.id
-        Swal.fire({
-          title: `La requisición con folio ${this.dataReq} ha sido recibida`,
-          html: ``,
-          icon: 'success'
-        });
+        this.usuario = localStorage.getItem('token');
+        const hoy = Date.now();                // obtenemos la fecha actual
+        const fechaEnviar = moment(hoy).format("YYYY-MM-DDThh:mm:ss"); // 2021-02-16 05:46 PM
+
+
+        this.dataSend = {
+          'idRequi': this.dataReq,
+          'usuario': this.usuario,
+          'fechaRegistro': fechaEnviar
+        }
+
+        this.service.sendData(this.dataSend).subscribe((data) => {
+
+          if (data == 1) {
+            this.blockUI.stop(); // Stop blocking
+
+            Swal.fire({
+              title: `La requisición con folio ${this.dataReq} ha sido recibida`,
+              html: ``,
+              icon: 'success'
+            }).then((result) => {
+              if (result.isConfirmed) {
+
+                window.location.reload()
+              }
+
+
+            });
+          }
+        })
+      } else if (event.target.classList.contains('mercancia') || event.target.classList.contains('iconoError')) {
+        Swal.fire('Surtido Incorrecto')
       }
     });
-      
+
   }
 
-  notificar(id: any) {
-    console.log(id)
+  notificar(mensaje: any) {
+    this.blockUI.start(mensaje); // Start blocking
   }
 
   ngOnDestroy(): void {
