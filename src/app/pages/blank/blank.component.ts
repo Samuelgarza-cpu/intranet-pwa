@@ -1,7 +1,18 @@
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
     selector: 'app-blank',
     templateUrl: './blank.component.html',
     styleUrls: ['./blank.component.scss']
 })
-export class BlankComponent {}
+export class BlankComponent implements OnInit {
+
+    mensaje: any;
+    constructor() {
+    }
+
+    ngOnInit(): void {
+    }
+
+
+}

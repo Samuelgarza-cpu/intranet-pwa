@@ -45,7 +45,9 @@ import { DatatableComponent } from './pages/datatable/datatable.component';
 import { DataTablesModule } from "angular-datatables";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NoticiaComponent } from './pages/noticia/noticia.component';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { BlockUIModule } from 'ng-block-ui';
+import { OficioComponent } from './pages/oficio/oficio.component';
 
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
@@ -78,7 +80,9 @@ registerLocaleData(localeEn, 'en-EN');
         PromocionComponent,
         PromoactivaComponent,
         DatatableComponent,
-        NoticiaComponent
+        NoticiaComponent,
+        OficioComponent
+        
     ],
     imports: [
         BrowserModule,
@@ -87,11 +91,13 @@ registerLocaleData(localeEn, 'en-EN');
         AppRoutingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
+        AngularEditorModule,
         ToastrModule.forRoot({
             timeOut: 3000,
             positionClass: 'toast-top-right',
             preventDuplicates: true
         }),
+        BlockUIModule.forRoot(),
         ProfabricComponentsModule,
         DataTablesModule,
         ServiceWorkerModule.register('ngsw-worker.js', {

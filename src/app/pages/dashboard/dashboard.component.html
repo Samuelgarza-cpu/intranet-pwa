@@ -24,7 +24,7 @@
 
 <!-- Main content -->
 <section class="content d-flex">
-    <div class="container">
+    <div class="container" id="Avisos">
         <div class="row">
             <div *ngFor="let item of avisos" class="col-lg-12 col-12" >
                 <div  class="row border rounded shadow p-3 mb-2 pt-4 bg-light efecto" (click)="modal($event,item)" >
@@ -32,7 +32,7 @@
                             class="alturaIMG rounded"
                             src="https://api.intranetgp.com/public/{{item.Imagen}}"></div>
                     <div  class="col-12 col-sm-8 col-md-9">
-                        <p  class="h3">CERRADO ACCESO</p>
+                        <p  class="h3">{{item.Titulo}}</p>
                         <div  class="row">
                             <div  class="col"><button  type="button"
                                     class="btn btn-outline-primary btn-sm rounded-pill mr-2 botoncito"
@@ -68,7 +68,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Detalle:</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

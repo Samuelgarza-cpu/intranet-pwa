@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ApiService } from '@services/api.service';
-
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { GcPdfViewer } from '@grapecity/gcpdfviewer';
 
 @Component({
-  selector: 'app-noticia',
-  templateUrl: './noticia.component.html',
-  styleUrls: ['./noticia.component.scss']
+  selector: 'app-oficio',
+  templateUrl: './oficio.component.html',
+  styleUrls: ['./oficio.component.scss']
 })
-export class NoticiaComponent implements OnInit {
+export class OficioComponent implements OnInit {
   Formulario: FormGroup;
   selectedFile: File = null;
   binary = new FormData();
   imagenURL = "";
+  oficio:any;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+    constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.Formulario = fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -26,10 +26,11 @@ export class NoticiaComponent implements OnInit {
 
 
     });
+    this.oficio = "https://api.gomezpalacio.gob.mx/api/pdf"
 
   }
 
-  config: AngularEditorConfig = {
+    config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     height: '15rem',
@@ -55,13 +56,11 @@ export class NoticiaComponent implements OnInit {
    
   };
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.Formulario.reset();
 
   }
-
-  
-  createFormData(event) {
+    createFormData(event) {
     this.selectedFile = event.target.files[0];
     // const file = event.target.files[0];
     const reader = new FileReader();
@@ -71,39 +70,9 @@ export class NoticiaComponent implements OnInit {
     }
     this.binary.append('imagen', this.selectedFile);
   }
-  enviarDatos() {
-    this.apiService.saveAviso(this.Formulario.value).subscribe((data) => {
-
-      const UltimoID = data.idIsert
-
-      if (data.code == 1) {
-
-        this.apiService.saveImagen(UltimoID, this.binary).subscribe((data) => {
-          if (data == 1) {
-
-            Swal.fire(
-              'ENVIADO',
-              '',
-              'success'
-            ).then(() =>{
-
-              location.reload();
-              this.ngOnInit();
-
-            })
-           
-            
-          } else {
-            console.log(data)
-          }
-
-
-        })
-
-   
-      }
-    })
-
+    enviarDatos() {
+ 
+    }
+  
   }
 
-}

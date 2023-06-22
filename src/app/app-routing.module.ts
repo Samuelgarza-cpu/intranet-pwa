@@ -18,6 +18,8 @@ import { PromocionComponent } from '@pages/promocion/promocion.component';
 import { PromoactivaComponent } from '@pages/promoactiva/promoactiva.component';
 import { NoticiaComponent } from '@pages/noticia/noticia.component';
 
+import { OficioComponent } from '@pages/oficio/oficio.component';
+
 
 const routes: Routes = [
     {
@@ -31,6 +33,10 @@ const routes: Routes = [
                 component: ProfileComponent
             },
             {
+                path: 'oficio',
+                component: OficioComponent
+            },
+            {
                 path: 'aviso',
                 component: NoticiaComponent
             },
@@ -39,7 +45,7 @@ const routes: Routes = [
                 component: RegisterComponent
             },
             {
-                path: 'blank',
+                path: 'requisiciones',
                 component: BlankComponent
             },
             {
