@@ -19,14 +19,18 @@ export class OficioComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.Formulario = fb.group({
-      titulo: ['', Validators.required],
+      Remitente: ['', Validators.required],
+      Destinatario: ['', Validators.required],
       descripcion: ['', Validators.required],
+      Atentamente: ['', Validators.required],
       archivo: ['', Validators.required],
+      folioInterno: ['', Validators.required],
+      Correo: ['', Validators.required],
       fecha: ['', Validators.required]
 
 
     });
-    this.oficio = "https://api.gomezpalacio.gob.mx/api/pdf"
+    this.oficio = "http://localhost:8000/Oficio6493e0d9e554c1687412953.pdf"
 
   }
 
@@ -71,7 +75,16 @@ export class OficioComponent implements OnInit {
     this.binary.append('imagen', this.selectedFile);
   }
     enviarDatos() {
- 
+      this.apiService.pdf(this.Formulario.value).subscribe((data)=>{
+        if(data == 1){
+          console.log(data);
+
+          location.reload();
+          this.ngOnInit();
+        }
+     
+      })
+    
     }
   
   }
