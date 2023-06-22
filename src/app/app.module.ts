@@ -47,6 +47,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NoticiaComponent } from './pages/noticia/noticia.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BlockUIModule } from 'ng-block-ui';
+import { OficioComponent } from './pages/oficio/oficio.component';
 
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
@@ -79,7 +80,8 @@ registerLocaleData(localeEn, 'en-EN');
         PromocionComponent,
         PromoactivaComponent,
         DatatableComponent,
-        NoticiaComponent
+        NoticiaComponent,
+        OficioComponent
         
     ],
     imports: [

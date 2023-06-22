@@ -46,4 +46,8 @@ export class ApiService {
     sendData(data: any): Observable<any> {
         return this.http.post(this.urlPHP, data);
     }
+
+    pdf(oficioIn:any): Observable<any>{
+        return this.http.post(`${this.URL}api/oficio`, oficioIn);
+    }
 }

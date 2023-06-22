@@ -52,11 +52,11 @@ export class MenuSidebarComponent implements OnInit {
                                 iconClasses: 'fa fa-user-plus',
                                 path: ['/requisiciones']
                             },
-                            // {
-                            //     name: 'CONTROL VEHICULAR',
-                            //     iconClasses: 'fa fa-car',
-                            //     path: ['/usuario']
-                            // }
+                            {
+                                name: 'OFICIOS',
+                                iconClasses: 'fa fa-car',
+                                path: ['/oficio']
+                            }
                         ]
                     },
                 ];

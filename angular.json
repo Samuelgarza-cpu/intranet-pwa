@@ -59,7 +59,8 @@
                             "gatekeeper-client-sdk",
                             "path",
                             "os",
-                            "fs"
+                            "fs",
+                            "@grapecity/gcpdfviewer"
                         ],
                         "serviceWorker": true,
                         "ngswConfigPath": "ngsw-config.json"
@@ -81,9 +82,9 @@
                             "buildOptimizer": true,
                             "budgets": [
                                 {
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
+                                     "type": "initial",
+                                    "maximumWarning": "8mb",
+                                    "maximumError": "10mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
