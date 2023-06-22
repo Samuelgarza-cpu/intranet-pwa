@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ApiService } from '@services/api.service';
 import Swal from 'sweetalert2';
-import { GcPdfViewer } from '@grapecity/gcpdfviewer';
+
+import moment from 'moment';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-oficio',
@@ -15,9 +17,13 @@ export class OficioComponent implements OnInit {
   selectedFile: File = null;
   binary = new FormData();
   imagenURL = "";
-  oficio:any;
+  oficioFecha: any = moment().format('DD [de] MMMM [de] YYYY').toUpperCase();
+  @BlockUI() blockUI: NgBlockUI;
 
-    constructor(private fb: FormBuilder, private apiService: ApiService) {
+
+
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
+
     this.Formulario = fb.group({
       Remitente: ['', Validators.required],
       Destinatario: ['', Validators.required],
@@ -27,14 +33,10 @@ export class OficioComponent implements OnInit {
       folioInterno: ['', Validators.required],
       Correo: ['', Validators.required],
       fecha: ['', Validators.required]
-
-
     });
-    this.oficio = "http://localhost:8000/Oficio6493e0d9e554c1687412953.pdf"
-
   }
 
-    config: AngularEditorConfig = {
+  config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     height: '15rem',
@@ -57,14 +59,17 @@ export class OficioComponent implements OnInit {
         'backgroundColor',
       ]
     ]
-   
+
   };
 
-    ngOnInit(): void {
+  ngOnInit(): void {
+
     this.Formulario.reset();
 
+    this.Formulario.get('fecha').patchValue(this.oficioFecha);
+
   }
-    createFormData(event) {
+  createFormData(event) {
     this.selectedFile = event.target.files[0];
     // const file = event.target.files[0];
     const reader = new FileReader();
@@ -74,18 +79,49 @@ export class OficioComponent implements OnInit {
     }
     this.binary.append('imagen', this.selectedFile);
   }
-    enviarDatos() {
-      this.apiService.pdf(this.Formulario.value).subscribe((data)=>{
-        if(data == 1){
-          console.log(data);
+  enviarDatos() {
+    try {
+      this.notificar("ENVIANDO OFICIO......")
+      this.apiService.pdf(this.Formulario.value).subscribe((data) => {
+        console.log(data);
+        if (data == 1) {
+          this.blockUI.stop(); // Stop blocking
 
-          location.reload();
-          this.ngOnInit();
+          Swal.fire({
+            title: `EL OFICIO SE ENVIO CORRECTAMENTE`,
+            html: ``,
+            icon: 'success'
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+              location.reload();
+              this.ngOnInit();
+            }
+          });
+        } else {
+          console.log(data);
+          this.blockUI.stop(); // Stop blocking
         }
-     
+      }, error => {
+        console.log(error);
+        this.blockUI.stop(); // Stop blocking
+
+        Swal.fire({
+          title: `REVISAR EL CORREO`,
+          html: ``,
+          icon: 'error'
+        })
       })
-    
+    } catch (error) {
+      console.log(error);
+      this.blockUI.stop(); // Stop blocking
     }
-  
+
   }
+
+
+  notificar(mensaje: any) {
+    this.blockUI.start(mensaje); // Start blocking
+  }
+}
 

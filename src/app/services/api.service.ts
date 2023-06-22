@@ -12,6 +12,7 @@ export class ApiService {
     // URL="http://localhost:5050/"
     URL = "https://api.intranetgp.com/"
     urlPHP = "https://api.gomezpalacio.gob.mx/api/requis";
+    urlPHPOficios = "https://api.gomezpalacio.gob.mx/api/pdf";
     urlLocal = "http://localhost:8000/";
 
     constructor(private http: HttpClient) { }
@@ -49,6 +50,6 @@ export class ApiService {
     }
 
     pdf(oficioIn:any): Observable<any>{
-        return this.http.post(`${this.urlLocal}api/pdf`, oficioIn);
+        return this.http.post(`${this.urlPHPOficios}`, oficioIn);
     }
 }

@@ -6,8 +6,8 @@
         <div class="form-group col-md-6">
           <div class="form-group ">
             <label for="fechaPublicacion">Fecha Oficio</label>
-            <input type="date" class="form-control" formControlName="fecha" name="fechaPublicacion"
-              id="fechaPublicacion">
+            <input type="text" class="form-control" formControlName="fecha" name="fechaPublicacion"
+              id="fechaPublicacion" readonly>
             <div *ngIf="Formulario.get('fecha')?.touched && Formulario.get('fecha')?.errors?.['required' ]"
               class="alert-default-danger"> Fecha Requerida</div>
           </div>
@@ -85,5 +85,7 @@
   <div>
     <!-- <a [href]="oficio" class="btn btn-primary" target="_blank">VER OFICIO</a> -->
   </div>
-
+  <block-ui>
+    <!-- Your app markup here -->
+  </block-ui>
 </section>
