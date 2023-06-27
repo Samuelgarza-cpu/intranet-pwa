@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -13,8 +13,11 @@ export class ApiService {
     URL = "https://api.intranetgp.com/"
     urlPHP = "https://api.gomezpalacio.gob.mx/api/requis";
     urlPHPOficios = "https://api.gomezpalacio.gob.mx/api/pdf";
+    Prueba = "https://api-cove.intranetgp.com/api/pdf";
     urlLocal = "http://localhost:8000/";
-
+    headers = new HttpHeaders({
+        'Content-Type':'application/x-www-form-urlencoded'
+      });
     constructor(private http: HttpClient) { }
 
     getAvisos() {
@@ -50,6 +53,6 @@ export class ApiService {
     }
 
     pdf(oficioIn:any): Observable<any>{
-        return this.http.post(`${this.urlPHPOficios}`, oficioIn);
+        return this.http.post(`${this.urlPHPOficios}`, oficioIn,{headers:this.headers});
     }
 }
