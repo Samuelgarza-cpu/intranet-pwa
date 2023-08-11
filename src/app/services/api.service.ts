@@ -46,11 +46,11 @@ export class ApiService {
     }
 
     getIndex(): Observable<any> {
-        return this.http.get(this.urlLocal);
+        return this.http.get(this.urlPHP);
     }
 
     sendData(data: any): Observable<any> {
-        return this.http.post(this.urlLocal, data);
+        return this.http.post(this.urlPHP, data);
     }
 
     pdf(oficioIn:any): Observable<any>{
