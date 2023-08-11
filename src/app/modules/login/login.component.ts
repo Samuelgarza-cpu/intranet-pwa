@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     async loginByAuth() {
         if (this.loginForm.valid) {
             this.isAuthLoading = true;
+            const almacen = [35,38,37,36];
             await this.appService.getUsuario(this.loginForm.value).subscribe((data) => {
 
                 if (data.length >= 1) {
@@ -53,8 +54,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                     localStorage.setItem('idUsuario', idUser);
                     localStorage.setItem('Nomina', nomina);
                     localStorage.setItem('token', correo);
-
-                    this.router.navigate(['/']);
+                    
+                    if(almacen.includes(idUser))  this.router.navigate(['/requisiciones']);
+                    else this.router.navigate(['/']);
+                    
                     this.toastr.success('Bienvenido');
                     Swal.fire({
                         title: 'BIENVENIDO',

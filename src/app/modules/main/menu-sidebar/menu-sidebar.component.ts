@@ -81,6 +81,14 @@ export class MenuSidebarComponent implements OnInit {
                         path: ['/']
                     },
                 ]
+            }else if (this.rol == 4) {
+                this.menu = [
+                    {
+                        name: 'ALMACEN',
+                        iconClasses: 'fa fa-user-plus',
+                        path: ['/requisiciones']
+                    },
+                ]
             }
             MENU=this.menu;
 

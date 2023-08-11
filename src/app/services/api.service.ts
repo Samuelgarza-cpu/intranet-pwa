@@ -14,7 +14,8 @@ export class ApiService {
     urlPHP = "https://api.gomezpalacio.gob.mx/api/requis";
     urlPHPOficios = "https://api.gomezpalacio.gob.mx/api/pdf";
     Prueba = "https://api-cove.intranetgp.com/api/pdf";
-    urlLocal = "http://localhost:8000/";
+    urlLocal = "http://localhost:8000/api/requis";
+
     headers = new HttpHeaders({
         'Content-Type':'application/x-www-form-urlencoded'
       });
@@ -45,11 +46,11 @@ export class ApiService {
     }
 
     getIndex(): Observable<any> {
-        return this.http.get(this.urlPHP);
+        return this.http.get(this.urlLocal);
     }
 
     sendData(data: any): Observable<any> {
-        return this.http.post(this.urlPHP, data);
+        return this.http.post(this.urlLocal, data);
     }
 
     pdf(oficioIn:any): Observable<any>{

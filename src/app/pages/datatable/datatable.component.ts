@@ -11,6 +11,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 
 import Swal from 'sweetalert2'
+import { data } from 'jquery';
 
 
 @Component({
@@ -21,10 +22,12 @@ export class DatatableComponent implements AfterViewInit, OnInit {
 
   dtOptions: DataTables.Settings = {};
   dataReq: any;
+  dataDep: any;
   isMerca: any;
   usuario: any;
   dataSend: {};
   dtTrigger: Subject<any> = new Subject<any>();
+  idUsers: any;
 
 
   @BlockUI() blockUI: NgBlockUI;
@@ -33,20 +36,25 @@ export class DatatableComponent implements AfterViewInit, OnInit {
 
   }
   ngOnInit(): void {
+this.idUsers = localStorage.getItem('idUsuario');
+
 
     this.dtOptions = {
       ajax: (dataTablesParameters: any, callback) => {
         this.httpClient
           .get(
-            'https://api.gomezpalacio.gob.mx/api/requis'
+            `http://127.0.0.1:8000/api/requis/${this.idUsers} `
           ).subscribe(resp => {
             callback({
               recordsTotal: resp,
               recordsFiltered: resp,
               data: resp            // <-- see here
-            });
+            })
+           
+            ;
           });
       },
+    
       columns: [
         {
           title: 'Folio',
@@ -76,12 +84,12 @@ export class DatatableComponent implements AfterViewInit, OnInit {
         }, {
           title: 'Acciones',
           render: function (data: any, type: any, full: any) {
-
+                   
             return full.notificacion == 1
               ? `  <b class="bg-secondary p-2 rounded "> NOTIFICADO </b>`
               : `<div class = "btn-group text-sm">
-                  <button type="button" class="btn btn-outline-primary btn-sm botoncito" data-id = ${full.IDRequisicion} title = "Notificar Llegada" > <i class="fa-solid fa-bell fa-shake fa-xl iconoNotificar" data-id = ${full.IDRequisicion}></i> </button>
-                  <button type="button" class="btn btn-outline-secondary btn-sm mercancia" data-id = ${full.IDRequisicion} title = "Mercancia Incorrecta" > <i class="fa-solid fa-box-check fa-xl iconoError" data-id = ${full.IDRequisicion}></i> </button></div>`
+                  <button type="button" class="btn btn-outline-primary btn-sm botoncito" data-id = ${full.IDRequisicion} data-dep = ${full.IDDepartamento} title = "Notificar Llegada" > <i class="fa-solid fa-bell fa-shake fa-xl iconoNotificar" data-id = ${full.IDRequisicion} data-dep = ${full.IDDepartamento}></i> </button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm mercancia" data-id = ${full.IDRequisicion} data-dep = ${full.IDDepartamento} title = "Mercancia Incorrecta" > <i class="fa-solid fa-box-check fa-xl iconoError" data-id = ${full.IDRequisicion} data-dep = ${full.IDDepartamento}></i> </button></div>`
 
           }
         }
@@ -111,6 +119,9 @@ export class DatatableComponent implements AfterViewInit, OnInit {
 
         this.notificar("ENVIANDO NOTIFICACION......")
         this.dataReq = event.target.dataset.id
+        this.dataDep = event.target.dataset.dep
+        console.log(this.dataDep);
+        
         this.usuario = localStorage.getItem('token');
         const hoy = Date.now();                // obtenemos la fecha actual
         const fechaEnviar = moment(hoy).format("YYYY-MM-DDThh:mm:ss"); // 2021-02-16 05:46 PM
@@ -119,7 +130,9 @@ export class DatatableComponent implements AfterViewInit, OnInit {
         this.dataSend = {
           'idRequi': this.dataReq,
           'usuario': this.usuario,
-          'fechaRegistro': fechaEnviar
+          'fechaRegistro': fechaEnviar,
+          'idDep': this.dataDep,
+          
         }
 
         this.service.sendData(this.dataSend).subscribe((data) => {
